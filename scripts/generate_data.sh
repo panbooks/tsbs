@@ -11,7 +11,7 @@ fi
 BULK_DATA_DIR=${BULK_DATA_DIR:-"/tmp/bulk_data"}
 
 # Space-separated list of target DB formats to generate
-FORMATS=${FORMATS:-"timescaledb"}
+FORMATS=${FORMATS:-"influx"}
 
 # Number of hosts to generate data about
 SCALE=${SCALE:-"4000"}

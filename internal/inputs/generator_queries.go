@@ -43,7 +43,7 @@ type IoTGeneratorMaker interface {
 // QueryGenerator is a type of Generator for creating queries to test against a
 // database. The output is specific to the type of database (due to each using
 // different querying techniques, e.g. SQL or REST), but is consumed by TSBS
-// query runners like tsbs_run_queries_timescaledb.
+// query runners like tsbs_run_queries_influx.
 type QueryGenerator struct {
 	// Out is the writer where data should be written. If nil, it will be
 	// os.Stdout unless File is specified in the GeneratorConfig passed to

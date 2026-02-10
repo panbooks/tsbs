@@ -113,25 +113,25 @@ func TestScannerLimit(t *testing.T) {
 	}
 }
 
-func TestScanTimescaleDB(t *testing.T) {
-	labelFmt := "tslabel%d"
-	descFmt := "tsdesc%d"
-	hyperFmt := "tshyper%d"
+func TestScanClickHouse(t *testing.T) {
+	labelFmt := "chlabel%d"
+	descFmt := "chdesc%d"
+	tableFmt := "chtable%d"
 	totalQueries := uint64(7)
 	var b bytes.Buffer
 	err := encodeQueries(&b, totalQueries, func(i uint64) Query {
-		q := NewTimescaleDB()
+		q := NewClickHouse()
 		q.HumanLabel = []byte(fmt.Sprintf(labelFmt, i))
 		q.HumanDescription = []byte(fmt.Sprintf(descFmt, i))
-		q.Hypertable = []byte(fmt.Sprintf(hyperFmt, i))
+		q.Table = []byte(fmt.Sprintf(tableFmt, i))
 		return q
 	})
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
 
-	runScan(t, &b, 0, totalQueries, &TimescaleDBPool, func(i int, q Query) error {
-		qt := q.(*TimescaleDB)
+	runScan(t, &b, 0, totalQueries, &ClickHousePool, func(i int, q Query) error {
+		qt := q.(*ClickHouse)
 		want := fmt.Sprintf(labelFmt, i)
 		if got := string(qt.HumanLabel); got != want {
 			return fmt.Errorf("wrong label for query %d: got %s want %s", i, got, want)
@@ -140,9 +140,9 @@ func TestScanTimescaleDB(t *testing.T) {
 		if got := string(qt.HumanDescription); got != want {
 			return fmt.Errorf("wrong desc for query %d: got %s want %s", i, got, want)
 		}
-		want = fmt.Sprintf(hyperFmt, i)
-		if got := string(qt.Hypertable); got != want {
-			return fmt.Errorf("wrong hypertable for query %d: got %s want %s", i, got, want)
+		want = fmt.Sprintf(tableFmt, i)
+		if got := string(qt.Table); got != want {
+			return fmt.Errorf("wrong table for query %d: got %s want %s", i, got, want)
 		}
 		if got := qt.GetID(); got != uint64(i) {
 			return fmt.Errorf("wrong ID for query: got %d want %d", got, i)

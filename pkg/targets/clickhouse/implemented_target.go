@@ -7,7 +7,6 @@ import (
 	"github.com/timescale/tsbs/pkg/data/source"
 	"github.com/timescale/tsbs/pkg/targets"
 	"github.com/timescale/tsbs/pkg/targets/constants"
-	"github.com/timescale/tsbs/pkg/targets/timescaledb"
 )
 
 func NewTarget() targets.ImplementedTarget {
@@ -21,7 +20,7 @@ func (c clickhouseTarget) Benchmark(string, *source.DataSourceConfig, *viper.Vip
 }
 
 func (c clickhouseTarget) Serializer() serialize.PointSerializer {
-	return &timescaledb.Serializer{}
+	return &Serializer{}
 }
 
 func (c clickhouseTarget) TargetSpecificFlags(flagPrefix string, flagSet *pflag.FlagSet) {

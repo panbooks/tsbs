@@ -1,11 +1,8 @@
 // tsbs_generate_data generates time series data from pre-specified use cases.
 //
 // Supported formats:
-// Cassandra CSV format
-// ClickHouse pseudo-CSV format (the same as for TimescaleDB)
+// ClickHouse pseudo-CSV format
 // InfluxDB bulk load format
-// MongoDB BSON format
-// TimescaleDB pseudo-CSV format (the same as for ClickHouse)
 // VictoriaMetrics bulk load format (the same as for InfluxDB)
 
 // Supported use cases:

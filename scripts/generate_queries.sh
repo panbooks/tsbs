@@ -12,12 +12,10 @@ EXE_FILE_VERSION=`md5sum $EXE_FILE_NAME | awk '{ print $1 }'`
 BULK_DATA_DIR=${BULK_DATA_DIR:-"/tmp/bulk_queries"}
 
 # Form of data to generate
-USE_JSON=${USE_JSON:-false}
 USE_TAGS=${USE_TAGS:-true}
-USE_TIME_BUCKET=${USE_TIME_BUCKET:-true}
 
 # Space-separated list of target DB formats to generate
-FORMATS=${FORMATS:-"timescaledb"}
+FORMATS=${FORMATS:-"influx"}
 
 # All available for generation query types (sorted alphabetically)
 QUERY_TYPES_ALL="\
@@ -86,9 +84,6 @@ for QUERY_TYPE in ${QUERY_TYPES}; do
                 --timestamp-start ${TS_START} \
                 --timestamp-end ${TS_END} \
                 --use-case ${USE_CASE} \
-                --timescale-use-json=${USE_JSON} \
-                --timescale-use-tags=${USE_TAGS} \
-                --timescale-use-time-bucket=${USE_TIME_BUCKET} \
                 --clickhouse-use-tags=${USE_TAGS} \
             | gzip  > ${DATA_FILE_NAME}
 

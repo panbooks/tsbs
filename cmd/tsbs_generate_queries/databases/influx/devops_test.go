@@ -60,24 +60,27 @@ func TestDevopsGetHostWhereString(t *testing.T) {
 		{
 			desc:   "single host",
 			nHosts: 1,
-			want:   "(hostname = 'host_1')",
+			want:   "(hostname = 'host_5')",
 		},
 		{
 			desc:   "multi host (2)",
 			nHosts: 2,
-			want:   "(hostname = 'host_7' or hostname = 'host_9')",
+			want:   "(hostname = 'host_9' or hostname = 'host_3')",
 		},
 		{
 			desc:   "multi host (3)",
 			nHosts: 3,
-			want:   "(hostname = 'host_1' or hostname = 'host_8' or hostname = 'host_5')",
+			want:   "(hostname = 'host_5' or hostname = 'host_9' or hostname = 'host_1')",
 		},
 	}
 
+	rand.Seed(123) // Setting seed for testing purposes.
+	s := time.Unix(0, 0)
+	e := s.Add(time.Hour)
 	for _, c := range cases {
 		t.Run(c.desc, func(t *testing.T) {
 			b := BaseGenerator{}
-			dq, err := b.NewDevops(time.Now(), time.Now(), 10)
+			dq, err := b.NewDevops(s, e, 10)
 			if err != nil {
 				t.Fatalf("Error while creating devops generator")
 			}

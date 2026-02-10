@@ -24,7 +24,7 @@ const (
 
 // DataGenerator is a type of Generator for creating data that will be consumed
 // by a database's write/insert operations. The output is specific to the type
-// of database, but is consumed by TSBS loaders like tsbs_load_timescaledb.
+// of database, but is consumed by TSBS loaders like tsbs_load_influx.
 type DataGenerator struct {
 	// Out is the writer where data should be written. If nil, it will be
 	// os.Stdout unless File is specified in the GeneratorConfig passed to
@@ -129,11 +129,7 @@ func (g *DataGenerator) runSimulator(sim common.Simulator, serializer serialize.
 
 func (g *DataGenerator) getSerializer(sim common.Simulator, target targets.ImplementedTarget) (serialize.PointSerializer, error) {
 	switch target.TargetName() {
-	case constants.FormatCrateDB:
-		fallthrough
 	case constants.FormatClickhouse:
-		fallthrough
-	case constants.FormatTimescaleDB:
 		g.writeHeader(sim.Headers())
 	}
 	return target.Serializer(), nil

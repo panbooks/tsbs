@@ -272,7 +272,7 @@ func TestBenchmarkRunnerRunNoQueries(t *testing.T) {
 
 	// RUN
 	wg.Add(1)
-	b.Run(&TimescaleDBPool, createProcessorFn)
+	b.Run(&ClickHousePool, createProcessorFn)
 	wg.Wait()
 	lock.Lock()
 	// ASSERT

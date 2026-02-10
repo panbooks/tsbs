@@ -52,7 +52,7 @@ func TestDataGeneratorInit(t *testing.T) {
 
 	c := &common.DataGeneratorConfig{
 		BaseConfig: common.BaseConfig{
-			Format: constants.FormatTimescaleDB,
+			Format: constants.FormatInflux,
 			Use:    common.UseCaseDevops,
 			Scale:  1,
 		},
@@ -80,7 +80,7 @@ func TestDataGeneratorInit(t *testing.T) {
 }
 
 func TestDataGeneratorGenerate(t *testing.T) {
-	targetName := constants.FormatTimescaleDB
+	targetName := constants.FormatInflux
 	dg := &DataGenerator{}
 	mockTarget := &mockTarget{
 		name: targetName,
@@ -330,16 +330,9 @@ func TestGetSerializer(t *testing.T) {
 		}
 	}
 
-	checkWriteHeader(constants.FormatCassandra, false)
 	checkWriteHeader(constants.FormatClickhouse, true)
 	checkWriteHeader(constants.FormatInflux, false)
-	checkWriteHeader(constants.FormatMongo, false)
-	checkWriteHeader(constants.FormatSiriDB, false)
-	checkWriteHeader(constants.FormatCrateDB, true)
-	checkWriteHeader(constants.FormatPrometheus, false)
-	checkWriteHeader(constants.FormatTimescaleDB, true)
 	checkWriteHeader(constants.FormatVictoriaMetrics, false)
-	checkWriteHeader(constants.FormatQuestDB, false)
 }
 
 type mockSerializer struct {

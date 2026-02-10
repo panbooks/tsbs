@@ -16,7 +16,7 @@ func TestBaseConfigValidate(t *testing.T) {
 	c := &common.BaseConfig{
 		Scale:  1,
 		Seed:   123,
-		Format: constants.FormatTimescaleDB,
+		Format: constants.FormatInflux,
 		Use:    common.UseCaseDevops,
 	}
 
@@ -54,10 +54,10 @@ func TestBaseConfigValidate(t *testing.T) {
 	}
 
 	// Test Format validation
-	c.Format = constants.FormatCassandra
+	c.Format = constants.FormatClickhouse
 	err = c.Validate()
 	if err != nil {
-		t.Errorf("unexpected error with Format '%s': %v", constants.FormatCassandra, err)
+		t.Errorf("unexpected error with Format '%s': %v", constants.FormatClickhouse, err)
 	}
 
 	c.Format = "unknown type"
@@ -70,7 +70,7 @@ func TestBaseConfigValidate(t *testing.T) {
 			t.Errorf("incorrect error for incorrect format: got\n%v\nwant\n%v", got, want)
 		}
 	}
-	c.Format = constants.FormatTimescaleDB
+	c.Format = constants.FormatInflux
 
 	// Test Use validation
 	c.Use = common.UseCaseCPUOnly

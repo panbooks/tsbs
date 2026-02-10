@@ -18,7 +18,7 @@ func TestDataGeneratorConfigValidate(t *testing.T) {
 	c := &common.DataGeneratorConfig{
 		BaseConfig: common.BaseConfig{
 			Seed:   123,
-			Format: constants.FormatTimescaleDB,
+			Format: constants.FormatInflux,
 			Use:    common.UseCaseDevops,
 			Scale:  10,
 		},
@@ -39,7 +39,7 @@ func TestDataGeneratorConfigValidate(t *testing.T) {
 	if err == nil {
 		t.Errorf("unexpected lack of error for bad format")
 	}
-	c.Format = constants.FormatTimescaleDB
+	c.Format = constants.FormatInflux
 
 	// Test InitialScale validation
 	c.InitialScale = 0
