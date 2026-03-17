@@ -32,6 +32,9 @@ LOG_INTERVAL=${LOG_INTERVAL:-"10s"}
 # Max number of points to generate data. 0 means "use TS_START TS_END with LOG_INTERVAL"
 MAX_DATA_POINTS=${MAX_DATA_POINTS:-"0"}
 
+# Max uncompressed file size in bytes. 0 means unlimited.
+MAX_FILE_SIZE=${MAX_FILE_SIZE:-"0"}
+
 # Ensure DATA DIR available
 mkdir -p ${BULK_DATA_DIR}
 chmod a+rwx ${BULK_DATA_DIR}
